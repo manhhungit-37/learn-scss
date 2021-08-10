@@ -1,0 +1,40 @@
+@import './variables';
+
+@mixin bgc($bgc: red) {
+  background-color: $bgc;
+}
+
+@mixin size($width, $heigth: $width) {
+  // Interpolation
+  #{$key_width}: $width;
+  height: $heigth;
+}
+
+@mixin absoluteCenter($direction: 'left') {
+  position: absolute;
+  @if $direction == 'left' {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  @if $direction == 'top' {
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  @if $direction == 'both' {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
+@mixin maxWidth($width) {
+  @media screen and (max-width: $width) {
+    @content
+  }
+}
+
+@mixin minWidth($width) {
+  @media screen and (min-width: $width) {
+    @content
+  }
+}

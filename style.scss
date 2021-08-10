@@ -1,0 +1,147 @@
+@import './variables';
+@import './mixins';
+html {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+}
+
+%h1, h1 { // % placeholder to use extend
+  color: $textColor;
+  padding: 2rem;
+  background-color: $background;
+}
+
+//Nested
+.header {
+  @extend %h1; // extends
+  &-inner {
+    color: $textColor;
+    &-text {
+      //nested property
+      font: {
+        family: "Arial";
+        size: 14px;
+        weight: bold;
+      }
+
+      &:hover {
+        color: orange;
+      }
+    }
+    &:hover {
+      color: $textColor;
+    }
+  }
+}
+
+.hung {
+  h1 {
+    font-size: 33px;
+  }
+}
+
+
+@include maxWidth(1024px) {
+  .header {
+    display: none;
+  }
+}
+
+.box {
+  @include bgc(orange);
+  @include size($width, 2 * $width);
+  @include absoluteCenter('left');
+}
+
+
+
+%common {
+  text-align: center;
+  background: #00e5ff;
+  border-radius: 10px;
+  margin: 5px;
+}
+
+// @mixin nav($width) {
+//   @extend %common;
+//   width: $width;
+// }
+
+// $sizes: 20, 50, 100;
+$sizes: (
+  20: 20%,
+  50: 50%,
+  100: 100%
+);
+
+.nav {
+  width: 50%;
+
+  // @each for array
+  
+  // @each $size in $sizes { 
+  //   &-#{$size} {
+  //     @extend %common;
+  //     width: $size * 1%;
+  //   }
+  // }
+
+  // @each for object
+  @each $key, $value in $sizes {
+    &-#{$key} {
+      @extend %common;
+      width: $value;
+    }
+  }
+}
+
+// for loop
+@for $i from 1 through 4 { // through then take the last value but to does not
+  .content:nth-child(#{$i}) {
+    opacity: $i * 0.2;
+  }
+}
+
+// while
+
+// $i: 1;
+
+// @while $i < 4 {
+//   .content:nth-child(#{$i}) {
+//     opacity: $i * 0.2;
+//   }
+//   $i: $i + 1;
+// }
+
+// $list: 1px, 2px, 3px;
+
+// $newList: append($list, 4px);
+// @debug $newList;
+// @debug $list;
+
+// $item: nth($list, 2);
+// @debug $item;
+
+// $new-item: set-nth($list, 2, 10px);
+// @debug $new-item;
+
+// $length: length($list);
+// @debug $length;
+
+// @for $i from 1 through $length {
+//   @debug $i;
+// }
+
+$map1: (long: 50px, medium: 20px, short: 10px);
+$map2: (long2: 50px, medium2: 20px, short2: 10px);
+
+// @debug map-get($map: $map1, $key: long);
+// @debug map-get($map1, long);
+
+// @debug map-remove($map1, long);
+
+// @debug map-merge($map1: $map1, $map2: $map2);
+// @debug map-merge($map1, $map2);
+
+@debug map-values($map: $map1);
+@debug map-values($map1);
